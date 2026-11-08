@@ -1,30 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Github, 
-  Linkedin, 
-  Mail, 
-  ExternalLink, 
-  Code2, 
-  Briefcase, 
-  GraduationCap, 
-  Send, 
-  Menu, 
-  X, 
-  Terminal, 
-  Cpu, 
-  Globe, 
-  Database, 
-  Layers, 
-  CheckCircle2, 
-  Copy, 
+import {
+  Github,
+  Linkedin,
+  Mail,
+  ExternalLink,
+  Code2,
+  Briefcase,
+  GraduationCap,
+  Send,
+  Menu,
+  X,
+  Terminal,
+  Cpu,
+  Globe,
+  Database,
+  Layers,
+  CheckCircle2,
+  Copy,
   ChevronRight,
   ArrowUpRight,
-  Sparkles
+  Sparkles,
+  Star,
+  GitFork,
+  Clock
 } from 'lucide-react';
 import IconLink from './components/IconLink.jsx';
+import ProjectCover from './components/ProjectCover.jsx';
 import ProjectFilterButton from './components/ProjectFilterButton.jsx';
 import SectionTitle from './components/SectionTitle.jsx';
 import ThemeToggle from './components/ThemeToggle.jsx';
+import githubData from './data/github.json';
+
+const { profile, stats, projects: projectsData } = githubData;
+const GITHUB_URL = profile.url;
+const LINKEDIN_URL = 'https://www.linkedin.com/in/mohamad-suffian-abu-bakar-717bb5288/';
+const PROJECT_CATEGORIES = ['All', ...new Set(projectsData.map((project) => project.category))];
+
+const formatMonthYear = (value) => {
+  if (!value) return '';
+  return new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(new Date(value));
+};
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -33,7 +48,7 @@ export default function App() {
   const [activeProjectFilter, setActiveProjectFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
   const [copied, setCopied] = useState(false);
-  
+
   // Contact Form State
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [formStatus, setFormStatus] = useState({ submitting: false, submitted: false, error: null });
@@ -111,57 +126,6 @@ export default function App() {
     ]
   };
 
-  const projectsData = [
-    {
-      id: 1,
-      title: 'DevPulse - Full-Stack Developer Platform',
-      category: 'Full Stack',
-      description: 'A modern collaborative web app designed for developers to share code snippets, track project milestones, and integrate with GitHub workflows in real-time.',
-      longDescription: 'DevPulse bridges developer collaboration with automated project dashboards. It features OAuth authentication, real-time code highlighting, custom workspace channels, and automated webhook integration with GitHub repositories.',
-      tags: ['React', 'Python', 'Tailwind CSS', 'REST APIs', 'PostgreSQL'],
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
-      github: 'https://github.com/xxMrPHDxx',
-      live: 'https://github.com/xxMrPHDxx',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Automated Data Pipeline & Dashboard',
-      category: 'Data & Backend',
-      description: 'An interactive analytical dashboard with custom Python data fetchers, transforming asynchronous API streams into real-time graphical visual metrics.',
-      longDescription: 'Built to aggregate high-frequency financial and web analytics data. Python workers collect structured data from third-party APIs into MongoDB, while a sleek React front-end serves lightweight dynamic charting.',
-      tags: ['Python', 'React', 'REST APIs', 'Chart.js', 'FastAPI'],
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-      github: 'https://github.com/xxMrPHDxx',
-      live: 'https://github.com/xxMrPHDxx',
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'NextGen E-Commerce Interface',
-      category: 'Frontend',
-      description: 'A lightning-fast modern shopping experience built with React, context state management, glassmorphism UI design, and responsive cart workflows.',
-      longDescription: 'Focuses on micro-interactions and performance optimization. Features smooth animated product grids, quick-view modals, seamless search & multi-tag filtering, and client-side checkout simulations.',
-      tags: ['React', 'JavaScript', 'Tailwind CSS', 'State Management'],
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-      github: 'https://github.com/xxMrPHDxx',
-      live: 'https://github.com/xxMrPHDxx',
-      featured: false
-    },
-    {
-      id: 4,
-      title: 'Git Workflow & Repo Insights CLI',
-      category: 'Tools & Utilities',
-      description: 'A developer productivity CLI tool written in Python to analyze git commit velocity, line churn, and code contributor stats with intuitive visual outputs.',
-      longDescription: 'Simplifies repository health checks directly in the terminal. Includes export options to formatted JSON or interactive HTML visual summaries for engineering team leads.',
-      tags: ['Python', 'Git', 'CLI', 'Web Scraping'],
-      image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80',
-      github: 'https://github.com/xxMrPHDxx',
-      live: 'https://github.com/xxMrPHDxx',
-      featured: false
-    }
-  ];
-
   const experienceData = [
     {
       role: 'Software & Web Developer',
@@ -195,13 +159,13 @@ export default function App() {
     }
   ];
 
-  const filteredProjects = activeProjectFilter === 'All' 
-    ? projectsData 
+  const filteredProjects = activeProjectFilter === 'All'
+    ? projectsData
     : projectsData.filter(p => p.category === activeProjectFilter);
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
-      
+
       {/* BACKGROUND GRAPHICS */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className={`absolute -top-40 -right-40 w-96 h-96 rounded-full filter blur-3xl opacity-20 ${darkMode ? 'bg-cyan-500' : 'bg-blue-400'}`}></div>
@@ -215,7 +179,7 @@ export default function App() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            
+
             {/* BRAND / LOGO */}
             <a href="#hero" className="flex items-center space-x-2 group">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-105 transition-transform">
@@ -242,8 +206,8 @@ export default function App() {
                     key={link.name}
                     href={link.href}
                     className={`px-3 py-2 rounded-lg transition-colors relative ${
-                      isActive 
-                        ? 'text-cyan-400 font-semibold' 
+                      isActive
+                        ? 'text-cyan-400 font-semibold'
                         : darkMode ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                   >
@@ -258,10 +222,10 @@ export default function App() {
 
             {/* ACTION BUTTONS (DARK MODE & SOCIALS) */}
             <div className="hidden md:flex items-center space-x-3">
-              <IconLink href="https://github.com/xxMrPHDxx" title="GitHub Profile" darkMode={darkMode}>
+              <IconLink href={GITHUB_URL} title="GitHub Profile" darkMode={darkMode}>
                 <Github size={18} />
               </IconLink>
-              <IconLink href="https://www.linkedin.com/in/mohamad-suffian-abu-bakar-717bb5288/" title="LinkedIn Profile" darkMode={darkMode}>
+              <IconLink href={LINKEDIN_URL} title="LinkedIn Profile" darkMode={darkMode}>
                 <Linkedin size={18} />
               </IconLink>
               <ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode(!darkMode)} />
@@ -303,7 +267,7 @@ export default function App() {
             ))}
             <div className="pt-4 border-t border-slate-800 flex space-x-4">
               <a
-                href="https://github.com/xxMrPHDxx"
+                href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-sm text-cyan-400"
@@ -311,7 +275,7 @@ export default function App() {
                 <Github size={16} /> <span>GitHub</span>
               </a>
               <a
-                href="https://www.linkedin.com/in/mohamad-suffian-abu-bakar-717bb5288/"
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-sm text-indigo-400"
@@ -327,21 +291,21 @@ export default function App() {
       <section id="hero" className="min-h-screen pt-28 pb-16 flex items-center relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* HERO TEXT */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 backdrop-blur-md">
                 <Sparkles size={14} className="animate-pulse" />
                 <span>Available for Full-Stack & Web Projects</span>
               </div>
-              
+
               <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none">
                 Hello, I'm <br />
                 <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
                   Mohamad Suffian
                 </span>
               </h1>
-              
+
               <p className="text-xl sm:text-2xl font-medium text-slate-400">
                 Full-Stack Software Developer & Web Specialist
               </p>
@@ -363,8 +327,8 @@ export default function App() {
                 <a
                   href="#contact"
                   className={`px-6 py-3.5 rounded-xl font-semibold border transition-all ${
-                    darkMode 
-                      ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-slate-200' 
+                    darkMode
+                      ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-slate-200'
                       : 'border-slate-300 bg-white hover:bg-slate-100 text-slate-800'
                   }`}
                 >
@@ -374,20 +338,20 @@ export default function App() {
 
               {/* SOCIAL LINKS BADGES */}
               <div className="pt-6 flex items-center justify-center lg:justify-start space-x-6 text-slate-400">
-                <a 
-                  href="https://github.com/xxMrPHDxx" 
-                  target="_blank" 
+                <a
+                  href={GITHUB_URL}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-sm hover:text-cyan-400 transition-colors"
                 >
                   <Github size={20} />
-                  <span>@xxMrPHDxx</span>
+                  <span>@{profile.login}</span>
                   <ArrowUpRight size={14} />
                 </a>
                 <span className="text-slate-700">•</span>
-                <a 
-                  href="https://www.linkedin.com/in/mohamad-suffian-abu-bakar-717bb5288/" 
-                  target="_blank" 
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-sm hover:text-indigo-400 transition-colors"
                 >
@@ -396,9 +360,27 @@ export default function App() {
                   <ArrowUpRight size={14} />
                 </a>
               </div>
-            </div>
 
-            {/* HERO VISUAL CARD / CODE EDITOR SIMULATION */}
+              {/* GITHUB SNAPSHOT STATS */}
+              <div className="pt-5 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs">
+                <span className={`px-3 py-1.5 rounded-full border font-medium ${darkMode ? 'border-slate-800 bg-slate-900/60 text-slate-400' : 'border-slate-200 bg-white text-slate-600'}`}>
+                  <span className="font-bold text-cyan-400">{profile.publicRepos}</span> public repos
+                </span>
+                <span className={`px-3 py-1.5 rounded-full border font-medium ${darkMode ? 'border-slate-800 bg-slate-900/60 text-slate-400' : 'border-slate-200 bg-white text-slate-600'}`}>
+                  <span className="font-bold text-indigo-400">{profile.followers}</span> GitHub followers
+                </span>
+                {profile.location && (
+                  <span className={`px-3 py-1.5 rounded-full border font-medium ${darkMode ? 'border-slate-800 bg-slate-900/60 text-slate-400' : 'border-slate-200 bg-white text-slate-600'}`}>
+                    {profile.location}
+                  </span>
+                )}
+                {profile.company && (
+                  <span className={`px-3 py-1.5 rounded-full border font-medium ${darkMode ? 'border-slate-800 bg-slate-900/60 text-slate-400' : 'border-slate-200 bg-white text-slate-600'}`}>
+                    {profile.company}
+                  </span>
+                )}
+              </div>
+            </div>
             <div className="lg:col-span-5">
               <div className={`rounded-2xl p-6 border shadow-2xl backdrop-blur-xl relative overflow-hidden ${
                 darkMode ? 'bg-slate-900/80 border-slate-800 text-slate-200' : 'bg-white/90 border-slate-200 text-slate-800'
@@ -419,7 +401,12 @@ export default function App() {
                     <span className="text-purple-400">const</span> <span className="text-cyan-300">developer</span> = {'{\n'}
                     {'  '}name: <span className="text-emerald-400">'Mohamad Suffian Abu Bakar'</span>,\n
                     {'  '}title: <span className="text-emerald-400">'Full Stack Developer'</span>,\n
-                    {'  '}coreTech: [<span className="text-emerald-400">'React'</span>, <span className="text-emerald-400">'JS'</span>, <span className="text-emerald-400">'Python'</span>, <span className="text-emerald-400">'APIs'</span>],\n
+                    {'  '}coreTech: [{stats.languages.slice(0, 4).map((language, index) => (
+                      <span key={language.name}>
+                        {index > 0 && ', '}
+                        <span className="text-emerald-400">'{language.name}'</span>
+                      </span>
+                    ))}],\n
                     {'  '}passions: [<span className="text-emerald-400">'Clean Architecture'</span>, <span className="text-emerald-400">'UI/UX'</span>, <span className="text-emerald-400">'Git Workflows'</span>],\n
                     {'  '}status: <span className="text-amber-300">'Ready for opportunities'</span>\n
                     {'}'};\n\n
@@ -453,17 +440,17 @@ export default function App() {
       {/* ABOUT ME SECTION */}
       <section id="about" className="py-20 relative z-10 border-t border-slate-800/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <SectionTitle eyebrow="Get To Know Me" title="Driven by Passion, Built on Code" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            
+
             {/* BIO CONTENT */}
             <div className="space-y-6">
               <h3 className="text-2xl font-bold">
                 I'm Mohamad Suffian Abu Bakar, a versatile Web & Software Developer.
               </h3>
-              
+
               <p className={`leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                 With a robust foundation in web development, interactive frontend frameworks, and Python backend scripts, I specialize in bringing modern web platforms from conceptual designs to deployment.
               </p>
@@ -474,12 +461,20 @@ export default function App() {
 
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <div className="text-3xl font-extrabold text-cyan-400 mb-1">3+</div>
-                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Years Experience</div>
+                  <div className="text-3xl font-extrabold text-cyan-400 mb-1">{profile.publicRepos}</div>
+                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Public Repos</div>
                 </div>
                 <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <div className="text-3xl font-extrabold text-indigo-400 mb-1">15+</div>
-                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Projects Built</div>
+                  <div className="text-3xl font-extrabold text-indigo-400 mb-1">{profile.followers}</div>
+                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">GitHub Followers</div>
+                </div>
+                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'}`}>
+                  <div className="text-3xl font-extrabold text-purple-400 mb-1">{stats.languageCount}</div>
+                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Languages Used</div>
+                </div>
+                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'}`}>
+                  <div className="text-3xl font-extrabold text-emerald-400 mb-1">{stats.totalStars}</div>
+                  <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Stars Earned</div>
                 </div>
               </div>
             </div>
@@ -508,11 +503,11 @@ export default function App() {
                   desc: 'Maintaining clean commits, pull requests, continuous deployment, and collaborative codebases.'
                 }
               ].map((item, index) => (
-                <div 
+                <div
                   key={index}
                   className={`p-6 rounded-2xl border backdrop-blur-sm transition-all hover:-translate-y-1 ${
-                    darkMode 
-                      ? 'bg-slate-900/60 border-slate-800/80 hover:border-slate-700' 
+                    darkMode
+                      ? 'bg-slate-900/60 border-slate-800/80 hover:border-slate-700'
                       : 'bg-white border-slate-200 hover:shadow-lg'
                   }`}
                 >
@@ -531,13 +526,13 @@ export default function App() {
       {/* SKILLS / TECH STACK SECTION */}
       <section id="skills" className="py-20 relative z-10 border-t border-slate-800/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <SectionTitle eyebrow="Capabilities & Tools" title="Skills & Technical Mastery" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {Object.entries(skillsData).map(([category, skills]) => (
-              <div 
-                key={category} 
+              <div
+                key={category}
                 className={`p-6 rounded-2xl border backdrop-blur-sm ${
                   darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
                 }`}
@@ -557,7 +552,7 @@ export default function App() {
                         <span className="text-slate-400 text-xs">{skill.level}%</span>
                       </div>
                       <div className={`w-full h-2 rounded-full overflow-hidden ${darkMode ? 'bg-slate-800' : 'bg-slate-200'}`}>
-                        <div 
+                        <div
                           className="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full transition-all duration-1000"
                           style={{ width: `${skill.level}%` }}
                         ></div>
@@ -569,16 +564,61 @@ export default function App() {
             ))}
           </div>
 
+          {/* GITHUB LANGUAGE BREAKDOWN */}
+          <div className={`mt-8 p-6 rounded-2xl border backdrop-blur-sm ${
+            darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+          }`}>
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+              <div className="flex items-center space-x-3">
+                <Github className="text-cyan-400" size={22} />
+                <h3 className="text-xl font-bold">GitHub Language Mix</h3>
+              </div>
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1"
+              >
+                <span>Synced from @{profile.login}</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+              {stats.languages.map((language) => (
+                <div key={language.name}>
+                  <div className="flex justify-between text-sm mb-1.5 font-medium">
+                    <span className="flex items-center space-x-2">
+                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: language.color }}></span>
+                      <span>{language.name}</span>
+                    </span>
+                    <span className="text-slate-400 text-xs">{language.percent}%</span>
+                  </div>
+                  <div className={`w-full h-2 rounded-full overflow-hidden ${darkMode ? 'bg-slate-800' : 'bg-slate-200'}`}>
+                    <div
+                      className="h-full rounded-full"
+                      style={{ width: `${Math.max(language.percent, 1)}%`, backgroundColor: language.color }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-5 text-xs text-slate-500">
+              Aggregated from {stats.sourceRepoCount} public source repositories · updated {formatMonthYear(githubData.generatedAt)}
+            </p>
+          </div>
+
           {/* BADGE CLOUD */}
           <div className="mt-12 text-center">
             <p className="text-sm text-slate-400 mb-4 font-medium uppercase tracking-wider">Quick Tech Summary</p>
             <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
               {['ReactJS', 'JavaScript (ES6)', 'Python', 'Tailwind CSS', 'Web Development', 'REST APIs', 'Git', 'GitHub', 'HTML5', 'CSS3', 'Node.js', 'PostgreSQL', 'Docker', 'Vercel', 'JSON'].map((tech) => (
-                <span 
+                <span
                   key={tech}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all hover:scale-105 ${
-                    darkMode 
-                      ? 'bg-slate-900 border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-cyan-400' 
+                    darkMode
+                      ? 'bg-slate-900 border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-cyan-400'
                       : 'bg-white border-slate-200 text-slate-700 hover:border-indigo-500/50 hover:text-indigo-600'
                   }`}
                 >
@@ -594,12 +634,12 @@ export default function App() {
       {/* PROJECTS SHOWCASE SECTION */}
       <section id="projects" className="py-20 relative z-10 border-t border-slate-800/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <SectionTitle eyebrow="Featured Work" title="Projects Showcase" className="mb-12" />
 
           {/* PROJECT CATEGORY FILTERS */}
           <div className="flex justify-center flex-wrap gap-2 mb-12">
-            {['All', 'Full Stack', 'Frontend', 'Data & Backend', 'Tools & Utilities'].map((cat) => (
+            {PROJECT_CATEGORIES.map((cat) => (
               <ProjectFilterButton
                 key={cat}
                 category={cat}
@@ -613,7 +653,7 @@ export default function App() {
           {/* PROJECTS GRID */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {filteredProjects.map((project) => (
-              <div 
+              <div
                 key={project.id}
                 className={`group rounded-2xl border overflow-hidden backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between ${
                   darkMode ? 'bg-slate-900/70 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 shadow-md'
@@ -622,13 +662,19 @@ export default function App() {
                 <div>
                   {/* PROJECT IMAGE CONTAINER */}
                   <div className="relative h-52 overflow-hidden bg-slate-800">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80"></div>
-                    
+                    {project.image ? (
+                      <>
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80"></div>
+                      </>
+                    ) : (
+                      <ProjectCover project={project} />
+                    )}
+
                     <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold bg-slate-950/80 border border-slate-700/80 backdrop-blur-md text-cyan-400">
                       {project.category}
                     </span>
@@ -639,14 +685,26 @@ export default function App() {
                     <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
                       {project.title}
                     </h3>
-                    
+
                     <p className={`text-sm mb-4 line-clamp-3 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                       {project.description}
                     </p>
 
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-500 mb-4">
+                      {project.language && (
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: project.languageColor }}></span>
+                          {project.language}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1"><Star size={12} /> {project.stars}</span>
+                      <span className="flex items-center gap-1"><GitFork size={12} /> {project.forks}</span>
+                      <span className="flex items-center gap-1"><Clock size={12} /> {formatMonthYear(project.pushedAt)}</span>
+                    </div>
+
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tags.map((tag) => (
-                        <span 
+                        <span
                           key={tag}
                           className={`px-2.5 py-1 rounded-md text-xs font-mono font-medium ${
                             darkMode ? 'bg-slate-800/80 text-cyan-300' : 'bg-slate-100 text-slate-700'
@@ -679,15 +737,17 @@ export default function App() {
                     >
                       <Github size={16} />
                     </a>
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`p-2 rounded-lg transition-colors ${darkMode ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'}`}
-                      title="Live Demo"
-                    >
-                      <ExternalLink size={16} />
-                    </a>
+                    {project.hasLive && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`p-2 rounded-lg transition-colors ${darkMode ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'}`}
+                        title="Live Demo"
+                      >
+                        <ExternalLink size={16} />
+                      </a>
+                    )}
                   </div>
                 </div>
 
@@ -711,11 +771,17 @@ export default function App() {
               <X size={20} />
             </button>
 
-            <img 
-              src={selectedProject.image} 
-              alt={selectedProject.title} 
-              className="w-full h-48 object-cover rounded-xl mb-6"
-            />
+            <div className="w-full h-48 rounded-xl mb-6 overflow-hidden">
+              {selectedProject.image ? (
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <ProjectCover project={selectedProject} />
+              )}
+            </div>
 
             <span className="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
               {selectedProject.category}
@@ -723,9 +789,21 @@ export default function App() {
 
             <h3 className="text-2xl font-bold mt-3 mb-2">{selectedProject.title}</h3>
 
-            <p className={`text-sm mb-6 leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+            <p className={`text-sm mb-4 leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
               {selectedProject.longDescription}
             </p>
+
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-400 mb-6">
+              {selectedProject.language && (
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: selectedProject.languageColor }}></span>
+                  {selectedProject.language}
+                </span>
+              )}
+              <span className="flex items-center gap-1"><Star size={12} /> {selectedProject.stars} stars</span>
+              <span className="flex items-center gap-1"><GitFork size={12} /> {selectedProject.forks} forks</span>
+              <span className="flex items-center gap-1"><Clock size={12} /> pushed {formatMonthYear(selectedProject.pushedAt)}</span>
+            </div>
 
             <div className="flex flex-wrap gap-2 mb-6">
               {selectedProject.tags.map(t => (
@@ -745,15 +823,17 @@ export default function App() {
                 <Github size={16} />
                 <span>GitHub Repository</span>
               </a>
-              <a
-                href={selectedProject.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white flex items-center space-x-2"
-              >
-                <span>Live Project</span>
-                <ExternalLink size={16} />
-              </a>
+              {selectedProject.hasLive && (
+                <a
+                  href={selectedProject.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white flex items-center space-x-2"
+                >
+                  <span>Live Project</span>
+                  <ExternalLink size={16} />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -762,11 +842,11 @@ export default function App() {
       {/* EXPERIENCE & EDUCATION SECTION */}
       <section id="experience" className="py-20 relative z-10 border-t border-slate-800/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <SectionTitle eyebrow="Career Journey" title="Experience & Education" />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            
+
             {/* EXPERIENCE TIMELINE */}
             <div>
               <div className="flex items-center space-x-3 mb-8">
@@ -780,7 +860,7 @@ export default function App() {
                 {experienceData.map((exp, index) => (
                   <div key={index} className="relative pl-10">
                     <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-cyan-400 ring-4 ring-slate-950"></div>
-                    
+
                     <div className={`p-6 rounded-2xl border backdrop-blur-sm ${
                       darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
                     }`}>
@@ -790,9 +870,9 @@ export default function App() {
                           {exp.period}
                         </span>
                       </div>
-                      
+
                       <div className="text-xs font-medium text-indigo-400 mb-4">{exp.company}</div>
-                      
+
                       <p className={`text-sm mb-4 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                         {exp.description}
                       </p>
@@ -824,7 +904,7 @@ export default function App() {
                 {educationData.map((edu, index) => (
                   <div key={index} className="relative pl-10">
                     <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-indigo-400 ring-4 ring-slate-950"></div>
-                    
+
                     <div className={`p-6 rounded-2xl border backdrop-blur-sm ${
                       darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
                     }`}>
@@ -834,9 +914,9 @@ export default function App() {
                           {edu.period}
                         </span>
                       </div>
-                      
+
                       <div className="text-xs font-medium text-cyan-400 mb-3">{edu.institution}</div>
-                      
+
                       <p className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                         {edu.details}
                       </p>
@@ -847,7 +927,7 @@ export default function App() {
                 {/* CERTIFICATIONS BADGE BOX */}
                 <div className="relative pl-10">
                   <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-purple-400 ring-4 ring-slate-950"></div>
-                  
+
                   <div className={`p-6 rounded-2xl border backdrop-blur-sm ${
                     darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
                   }`}>
@@ -880,11 +960,11 @@ export default function App() {
       {/* CONTACT SECTION */}
       <section id="contact" className="py-20 relative z-10 border-t border-slate-800/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <SectionTitle eyebrow="Let's Connect" title="Get In Touch" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            
+
             {/* CONTACT INFO CARD */}
             <div className="lg:col-span-5 space-y-6">
               <div className={`p-8 rounded-2xl border backdrop-blur-md ${
@@ -893,7 +973,7 @@ export default function App() {
                 <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
 
                 <div className="space-y-6">
-                  
+
                   {/* EMAIL */}
                   <div className="flex items-start space-x-4">
                     <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
@@ -901,7 +981,7 @@ export default function App() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Email</p>
-                      <button 
+                      <button
                         onClick={() => copyToClipboard('msuffian1997@gmail.com')}
                         className="text-sm font-semibold hover:text-cyan-400 flex items-center space-x-2 mt-0.5"
                       >
@@ -919,8 +999,8 @@ export default function App() {
                     </div>
                     <div>
                       <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">LinkedIn</p>
-                      <a 
-                        href="https://www.linkedin.com/in/mohamad-suffian-abu-bakar-717bb5288/"
+                      <a
+                        href={LINKEDIN_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm font-semibold hover:text-indigo-400 flex items-center space-x-1 mt-0.5"
@@ -938,13 +1018,13 @@ export default function App() {
                     </div>
                     <div>
                       <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">GitHub</p>
-                      <a 
-                        href="https://github.com/xxMrPHDxx"
+                      <a
+                        href={GITHUB_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm font-semibold hover:text-purple-400 flex items-center space-x-1 mt-0.5"
                       >
-                        <span>@xxMrPHDxx</span>
+                        <span>@{profile.login}</span>
                         <ArrowUpRight size={14} />
                       </a>
                     </div>
@@ -963,7 +1043,7 @@ export default function App() {
 
             {/* CONTACT FORM */}
             <div className="lg:col-span-7">
-              <form 
+              <form
                 onSubmit={handleFormSubmit}
                 className={`p-8 rounded-2xl border backdrop-blur-md space-y-6 ${
                   darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-md'
@@ -983,15 +1063,15 @@ export default function App() {
                     <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
                       Your Name
                     </label>
-                    <input 
+                    <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
                       className={`w-full px-4 py-3 rounded-xl text-sm border outline-none transition-colors ${
-                        darkMode 
-                          ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white' 
+                        darkMode
+                          ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white'
                           : 'bg-slate-50 border-slate-300 focus:border-indigo-500 text-slate-900'
                       }`}
                     />
@@ -1001,15 +1081,15 @@ export default function App() {
                     <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
                       Your Email
                     </label>
-                    <input 
+                    <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="john@example.com"
                       className={`w-full px-4 py-3 rounded-xl text-sm border outline-none transition-colors ${
-                        darkMode 
-                          ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white' 
+                        darkMode
+                          ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white'
                           : 'bg-slate-50 border-slate-300 focus:border-indigo-500 text-slate-900'
                       }`}
                     />
@@ -1020,15 +1100,15 @@ export default function App() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
                     Subject
                   </label>
-                  <input 
+                  <input
                     type="text"
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="Project Inquiry / Collaboration"
                     className={`w-full px-4 py-3 rounded-xl text-sm border outline-none transition-colors ${
-                      darkMode 
-                        ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white' 
+                      darkMode
+                        ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white'
                         : 'bg-slate-50 border-slate-300 focus:border-indigo-500 text-slate-900'
                     }`}
                   />
@@ -1038,15 +1118,15 @@ export default function App() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
                     Message
                   </label>
-                  <textarea 
+                  <textarea
                     rows={5}
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Hello Mohamad Suffian, I'd like to discuss..."
                     className={`w-full px-4 py-3 rounded-xl text-sm border outline-none transition-colors ${
-                      darkMode 
-                        ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white' 
+                      darkMode
+                        ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white'
                         : 'bg-slate-50 border-slate-300 focus:border-indigo-500 text-slate-900'
                     }`}
                   ></textarea>
@@ -1080,17 +1160,17 @@ export default function App() {
           <p>© {new Date().getFullYear()} Mohamad Suffian Abu Bakar. All rights reserved.</p>
 
           <div className="flex space-x-6">
-            <a 
-              href="https://github.com/xxMrPHDxx" 
-              target="_blank" 
+            <a
+              href={GITHUB_URL}
+              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-cyan-400 transition-colors"
             >
               GitHub
             </a>
-            <a 
-              href="https://www.linkedin.com/in/mohamad-suffian-abu-bakar-717bb5288/" 
-              target="_blank" 
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-indigo-400 transition-colors"
             >

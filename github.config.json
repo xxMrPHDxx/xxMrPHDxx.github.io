@@ -1,0 +1,77 @@
+{
+  "username": "xxMrPHDxx",
+  "featured": [
+    {
+      "repo": "pdf-lambda-demo",
+      "category": "Data & Backend",
+      "title": "PDF Fulfilment Pipeline on AWS",
+      "summary": "Asynchronous order-to-PDF-to-ZIP pipeline built with NestJS, Go Lambdas, SQS, S3, SES, DynamoDB, and Redis, with live progress over SSE.",
+      "longDescription": "An event-driven fulfilment demo that batches orders, renders supplier-grouped PDFs in Go Lambdas, assembles cached ZIP archives, and emails presigned download links through SES. The React portal streams live job progress over SSE while Redis enforces global and per-client concurrency limits. Runs on LocalStack locally and on real AWS infrastructure in production.",
+      "tags": ["NestJS", "Go", "AWS Lambda", "SQS", "S3", "DynamoDB", "React"]
+    },
+    {
+      "repo": "disc-tech-store",
+      "category": "Frontend",
+      "title": "DISC Personality Questionnaire",
+      "summary": "Next.js questionnaire that digitises an 80-statement DISC assessment with live selection validation, progress tracking, and local persistence.",
+      "longDescription": "A static Next.js app that turns a printed DISC assessment into an accessible web experience. Users select exactly 30 of 80 statements, with a live counter, progress bar, over-limit guidance, completion state, and keyboard-friendly cards. Selections persist in local storage, and every push to main deploys automatically to GitHub Pages.",
+      "tags": ["Next.js", "TypeScript", "Tailwind CSS", "GitHub Pages"]
+    },
+    {
+      "repo": "package-locker-management",
+      "category": "Full Stack",
+      "title": "Package Locker Management",
+      "summary": "Monorepo parcel-locker system with smallest-fit allocation, pickup codes, tiered storage fees, and concurrency-safe assignment.",
+      "longDescription": "A package locker platform built as a Node.js + TypeScript REST API with a React + Vite frontend. The domain layer handles smallest-fit locker allocation, cryptographically random pickup codes, tiered storage charges, and atomic reservations that prevent double allocation. Includes 51 Vitest tests, shared domain types, and a Docker image for the backend.",
+      "tags": ["TypeScript", "React", "Express", "Vitest", "Docker"]
+    },
+    {
+      "repo": "Fractal-Tree",
+      "category": "Frontend",
+      "title": "Space Colonization Fractal Tree",
+      "summary": "Generative art experiment that grows an organic fractal tree in the browser using the space-colonization algorithm and ES6.",
+      "longDescription": "An interactive creative-coding project that renders a fractal tree with the space-colonization algorithm. Branches grow toward attractor points, producing natural-looking structures entirely in the browser. Built with modern JavaScript and ES6 modules, with a live demo published on GitHub Pages.",
+      "tags": ["JavaScript", "Creative Coding", "Canvas", "Generative Art", "ES6"]
+    },
+    {
+      "repo": "palm-authentication",
+      "category": "Data & Backend",
+      "title": "Palm Authentication with TensorFlow",
+      "summary": "Biometric authentication system that captures, preprocesses, trains, enrolls, and verifies palm prints through a webcam.",
+      "longDescription": "A computer-vision authentication pipeline implemented in Python. It captures palm images from a webcam, extracts hand landmarks with MediaPipe, builds training and validation datasets, trains a TensorFlow model, and verifies enrolled users in real time. Includes separate scripts for dataset creation, preprocessing, training, enrollment, and prediction.",
+      "tags": ["Python", "TensorFlow", "MediaPipe", "OpenCV", "Machine Learning"]
+    },
+    {
+      "repo": "Menu-QRizer",
+      "category": "Tools & Utilities",
+      "title": "Menu QRizer",
+      "summary": "QR-code restaurant menu platform with a React and Express stack, Drizzle ORM, PostgreSQL, and a component-rich admin dashboard.",
+      "longDescription": "A full-stack menu platform for restaurants. The Express API uses Drizzle ORM with PostgreSQL, while the React front end provides a dashboard for managing menus, categories, and QR codes. Includes session-based authentication, image uploads, a Radix UI component system, and a production build served from a single Node process.",
+      "tags": ["React", "Express", "TypeScript", "PostgreSQL", "Drizzle ORM"]
+    },
+    {
+      "repo": "feedme_mcdonalds",
+      "category": "Frontend",
+      "title": "FeedMe Mobile App",
+      "summary": "Flutter mobile application built for the FeedMe software engineering assessment, delivering a McDonald's-style ordering experience.",
+      "longDescription": "A Flutter mobile application created for the FeedMe software engineering assessment. The project focuses on a native mobile ordering flow with a McDonald's-inspired product experience, responsive layouts, and reusable Dart widgets.",
+      "tags": ["Flutter", "Dart", "Mobile", "Cross-Platform"]
+    },
+    {
+      "repo": "super-mario-ts",
+      "category": "Frontend",
+      "title": "Super Mario in TypeScript",
+      "summary": "Browser-based Super Mario-inspired platformer written in TypeScript with tile levels, sprite animation, and keyboard controls.",
+      "longDescription": "A playable Super Mario-inspired platformer that runs entirely in the browser. Built from scratch in TypeScript with a custom game loop, tile-based level rendering, sprite animation, collision detection, and keyboard input handling.",
+      "tags": ["TypeScript", "Game Development", "Canvas", "HTML5"]
+    },
+    {
+      "repo": "e-voting",
+      "category": "Full Stack",
+      "title": "Blockchain E-Voting System",
+      "summary": "Next.js e-voting application backed by blockchain concepts, with a separate Python backend for election data.",
+      "longDescription": "A blockchain-based electronic voting system built with Next.js and deployed on Vercel. The web app provides the voter-facing ballot flow, while a separate Python backend handles election records. The project explores tamper-resistant vote storage through a blockchain-inspired data model.",
+      "tags": ["Next.js", "JavaScript", "Blockchain", "Web3", "Vercel"]
+    }
+  ]
+}
