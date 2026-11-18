@@ -95,14 +95,17 @@ export default function App() {
     e.preventDefault();
     setFormStatus({ submitting: true, submitted: false, error: null });
 
-    // Simulate API request delay
+    const text = `Hi, I'm ${formData.name} (${formData.email}).\n\nSubject: ${formData.subject}\n\n${formData.message}`;
+    const waUrl = `https://wasap.my/+60173214203/${encodeURIComponent(text)}`;
+
     setTimeout(() => {
       setFormStatus({ submitting: false, submitted: true, error: null });
       setFormData({ name: '', email: '', subject: '', message: '' });
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
       setTimeout(() => {
         setFormStatus({ submitting: false, submitted: false, error: null });
       }, 5000);
-    }, 1200);
+    }, 600);
   };
 
   const skillsData = {
@@ -1054,7 +1057,7 @@ export default function App() {
                 {formStatus.submitted && (
                   <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center space-x-2">
                     <CheckCircle2 size={18} />
-                    <span>Thank you! Your message has been successfully submitted.</span>
+                    <span>Message sent! You're being redirected to WhatsApp to complete your message.</span>
                   </div>
                 )}
 
