@@ -50,7 +50,7 @@ export default function App() {
   const [copied, setCopied] = useState(false);
 
   // Contact Form State
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', subject: '', message: '' });
   const [formStatus, setFormStatus] = useState({ submitting: false, submitted: false, error: null });
 
   // Handle dark mode toggle
@@ -95,12 +95,12 @@ export default function App() {
     e.preventDefault();
     setFormStatus({ submitting: true, submitted: false, error: null });
 
-    const text = `Hi, I'm ${formData.name} (${formData.email}).\n\nSubject: ${formData.subject}\n\n${formData.message}`;
+    const text = `Hi, I'm ${formData.name}.\n\nSubject: ${formData.subject}\n\n${formData.message}`;
     const waUrl = `https://wasap.my/+60173214203/${encodeURIComponent(text)}`;
 
     setTimeout(() => {
       setFormStatus({ submitting: false, submitted: true, error: null });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', subject: '', message: '' });
       window.open(waUrl, '_blank', 'noopener,noreferrer');
       setTimeout(() => {
         setFormStatus({ submitting: false, submitted: false, error: null });
@@ -1061,7 +1061,7 @@ export default function App() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6">
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
                       Your Name
@@ -1072,24 +1072,6 @@ export default function App() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
-                      className={`w-full px-4 py-3 rounded-xl text-sm border outline-none transition-colors ${
-                        darkMode
-                          ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white'
-                          : 'bg-slate-50 border-slate-300 focus:border-indigo-500 text-slate-900'
-                      }`}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                      Your Email
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="john@example.com"
                       className={`w-full px-4 py-3 rounded-xl text-sm border outline-none transition-colors ${
                         darkMode
                           ? 'bg-slate-950 border-slate-800 focus:border-cyan-500 text-white'
