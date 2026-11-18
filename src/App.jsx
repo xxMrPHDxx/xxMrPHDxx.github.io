@@ -131,34 +131,65 @@ export default function App() {
 
   const experienceData = [
     {
-      role: 'Software & Web Developer',
-      company: 'Tech Solutions & Consulting',
-      period: '2022 - Present',
-      description: 'Architecting dynamic web applications, developing scalable REST APIs, and modernizing frontend interfaces using React and modern CSS architecture.',
+      role: 'Senior Software Engineer',
+      company: 'FeedMe POS Sdn. Bhd.',
+      period: 'Dec 2025 - Present',
+      description: 'Leading product-based engineering deliverables within an agile team, architecting full-stack web and mobile applications, and championing the transition into agentic AI development.',
       achievements: [
-        'Built modern single-page applications boosting client engagement by 40%.',
-        'Implemented modular backend Python scripts to streamline data sync processes.',
-        'Championed clean code practices, Git flow standards, and reusable component libraries.'
+        'Lead agile team of 5 delivering robust engineering features aligned with business targets.',
+        'Architect frontend web experiences with Node.js and Vue.js, alongside cross-platform mobile apps in Flutter/Dart.',
+        'Engineer and scale resilient backend microservices using NestJS and AWS cloud infrastructure.',
+        'Championed agentic AI workflows, drastically accelerating feature delivery, testing, and bug resolution.'
       ]
     },
     {
-      role: 'Frontend Developer & Tech Consultant',
-      company: 'Digital Innovation Lab',
-      period: '2020 - 2022',
-      description: 'Focused on UI/UX redesigns, component lifecycle optimization, cross-browser compatibility, and seamless web interface integrations.',
+      role: 'Senior UI/UX Developer',
+      company: 'Masterpay Global Sdn. Bhd.',
+      period: 'Sep 2024 - Dec 2025',
+      description: 'Spearheaded cross-platform mobile fintech applications, leading product releases, CI/CD versioning, and cloud deployments on AWS.',
       achievements: [
-        'Converted complex Figma blueprints into fluid responsive React web interfaces.',
-        'Reduced web bundle load times by 35% through lazy loading and code splitting.'
+        'Spearheaded Flutter mobile development across complete lifecycles for major fintech apps (Masterpay, PAY9).',
+        'Orchestrated multiple high-frequency app production releases to Apple App Store and Google Play Store.',
+        'Led and mentored development team, standardizing GitHub branching strategies and code reviews.',
+        'Operated and configured AWS cloud infrastructure to support fintech mobile and web services.'
+      ]
+    },
+    {
+      role: 'Senior Software Developer',
+      company: 'BliBlah Network Sdn. Bhd.',
+      period: 'May 2020 - Sep 2024',
+      description: 'Developed native Android applications in Kotlin and enterprise backend APIs with C# and .NET Core, delivering end-to-end B2B2C solutions and corporate ecosystems.',
+      achievements: [
+        'Built and integrated Android apps with Kotlin, crafting responsive UI and RESTful service integrations.',
+        'Developed robust backend web services and Web APIs using C#, .NET Core, ASP.NET Core, and SQL.',
+        'Delivered TiTi (B2B2C cross-border e-commerce logistics platform), Bersidang corporate booking system, and internal CMS/MMS platforms using Flutter and CodeIgniter.',
+        'Optimized system architectures, database queries, and debugging flows across web and mobile.'
+      ]
+    },
+    {
+      role: 'Software Engineer (Internship)',
+      company: 'Media Prima Berhad - NSTP Bangsar',
+      period: 'Jul 2019 - Nov 2019',
+      description: 'Engineered Python data-scraping pipelines and natural language processing (NLP) neural network models for news classification and summarization.',
+      achievements: [
+        'Built Python scrapers feeding unstructured news articles into custom neural network models.',
+        'Contributed to text classification and abstractive summarization models on Google Colab.'
       ]
     }
   ];
 
   const educationData = [
     {
-      degree: 'Bachelor of Computer Science / Information Technology',
-      institution: 'Higher Education Institution',
-      period: '2017 - 2021',
-      details: 'Specialized in Software Engineering, Web Systems, Database Management, and Algorithm Analysis.'
+      degree: 'Bachelor of (Hons.) Statistics',
+      institution: 'Universiti Teknologi MARA (Kelantan)',
+      period: 'Graduated 2019',
+      details: 'Statistical analysis, mathematical modeling, computing algorithms, data structures, and database principles.'
+    },
+    {
+      degree: 'Database Design and Programming with SQL',
+      institution: 'Oracle Corporation',
+      period: 'Course Completion Award',
+      details: 'Relational database architecture, advanced SQL querying, data normalization, and performance optimization.'
     }
   ];
 
